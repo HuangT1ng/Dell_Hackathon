@@ -28,7 +28,7 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'Mobile App', path: '/mobile' },
     { name: 'SenseSpot Pod', path: '/sensespot' },
-    { name: 'Corporate Dashboard', path: '/corporate' },
+    { name: 'Corporate Dashboard', path: '/corporateDashboard' },
     { name: 'AI Learning', path: '/ai' },
   ];
 

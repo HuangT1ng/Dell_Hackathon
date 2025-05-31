@@ -83,7 +83,7 @@ const HomePage = () => {
                 icon: <Building2 className="h-10 w-10 text-primary-600" />,
                 title: 'Corporate Solutions',
                 description: 'Empower employee wellness with integrated screening programs',
-                link: '/corporate'
+                link: '/corporateDashboard'
               },
               {
                 icon: <Brain className="h-10 w-10 text-primary-600" />,
