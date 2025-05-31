@@ -74,7 +74,7 @@ OncoSense is an integrated cancer screening and early detection platform that co
 - `/` - Home page
 - `/mobile` - Mobile app information
 - `/sensespot` - SenseSpot pod information
-- `/corporate` - Corporate dashboard
+- `/corporateDashboard` - Corporate dashboard
 - `/ai` - AI learning and technology information
 
 ## Known Issues
