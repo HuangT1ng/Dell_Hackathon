@@ -14,7 +14,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="mobile" element={<MobileAppPage />} />
         <Route path="sensespot" element={<SenseSpotPage />} />
-        <Route path="corporate" element={<CorporatePage />} />
+        <Route path="corporateDashboard" element={<CorporatePage />} />
         <Route path="ai" element={<AILearningPage />} />
       </Route>
     </Routes>
