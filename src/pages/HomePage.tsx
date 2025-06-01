@@ -1,169 +1,263 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle2, Smartphone, Layers, Building2, Brain, Calendar, Award, Users, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Mail, Share2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+const iconBgColors = [
+  'bg-orange-200', // Donate Now
+  'bg-cyan-200',  // Ambulance
+  'bg-blue-900',  // Diaper
+  'bg-red-200',   // Shield
+  'bg-yellow-200',// Milk
+  'bg-purple-200',// Bed
+  'bg-green-200', // Doctor
+  'bg-blue-100',  // Credit Card
+];
+
+const iconImages = [
+  // Use public domain or placeholder icons for demo
+  'https://cdn-icons-png.flaticon.com/512/1041/1041916.png', // Coin hand
+  'https://cdn-icons-png.flaticon.com/512/2965/2965567.png', // Ambulance
+  'https://cdn-icons-png.flaticon.com/512/1041/1041911.png', // Diaper
+  'https://cdn-icons-png.flaticon.com/512/1041/1041912.png', // Shield
+  'https://cdn-icons-png.flaticon.com/512/1041/1041914.png', // Milk
+  'https://cdn-icons-png.flaticon.com/512/1041/1041915.png', // Bed
+  'https://cdn-icons-png.flaticon.com/512/1041/1041913.png', // Doctor
+  'https://cdn-icons-png.flaticon.com/512/633/633611.png', // Credit Card (working)
+];
+
+const donationOptions = [
+  {
+    icon: '🪙',
+    label: 'DONATE NOW!',
+    price: '',
+    desc: 'For GIRO and Cheque Donation, download the forms below',
+  },
+  {
+    icon: '🚑',
+    label: '$60.00',
+    desc: 'To-and-fro trip from home to hospital for cancer appointments made possible with your donation.*',
+  },
+  {
+    icon: '🩲',
+    label: '$120.00',
+    desc: 'Your donation will empower our patients with adult diapers to live independently*',
+  },
+  {
+    icon: '🛡️',
+    label: '$228.00',
+    desc: 'Your generosity will contribute to the quality end-of-life care for hospice patients in their homes*',
+  },
+  {
+    icon: '🥛',
+    label: '$360.00',
+    desc: 'Your gift will aid our patients with the cost of medical supplies such as stoma bags, milk feed and wound dressings.',
+  },
+  {
+    icon: '🛏️',
+    label: '$720.00',
+    desc: 'Your kind donation greatly helps beneficiaries with multiple rehabilitation sessions to regain strength, mobility and stamina, post treatment.',
+  },
+  {
+    icon: '👨‍⚕️',
+    label: 'THE IMPACT OF YOUR GIVING',
+    desc: '',
+  },
+  {
+    icon: '💳',
+    label: 'CHANGE OF DONATION DETAILS',
+    desc: '',
+  },
+];
+
+const tabOptions = [
+  'PayNow',
+  'Credit/Debit Card',
+  'GIRO',
+  'Cheque',
+  'Cash',
+  'SCS Advocates',
+  'SCS Appointed Fundraiser',
+  'Fundraising',
+  'In-Kind Donation',
+  'Donation in Memory',
+  'Cancellation',
+];
 
 const HomePage = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
+
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 text-blue-900">
-        <div className="container mx-auto px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-            <motion.div 
-              className="flex flex-col justify-center"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-blue-900">
-                Revolutionizing Early Cancer Detection
-              </h1>
-              <p className="mt-6 text-lg leading-8 text-blue-800">
-                OncoSense is creating a future where everyone has easy, immediate access to cancer screening, health education, and personalized care — all through AI-driven technology and community collaboration.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <Link
-                  to="/mobile"
-                  className="btn bg-blue-600 text-white hover:bg-blue-700 px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  Try Symptom Checker
-                </Link>
-                <Link
-                  to="/sensespot"
-                  className="btn bg-white text-blue-600 hover:bg-blue-50 border-2 border-blue-600 px-8 py-3 rounded-lg font-medium transition-all duration-300"
-                >
-                  Find SenseSpot Pod
-                </Link>
-              </div>
-            </motion.div>
-            <motion.div 
-              className="flex items-center justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <img
-                src="https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt="Modern healthcare technology"
-                className="w-full max-w-md rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300"
-              />
-            </motion.div>
+    <div className="min-h-screen flex flex-col bg-white">
+      {/* Header */}
+      <header className="w-full bg-white shadow-sm flex flex-col">
+        <div className="flex items-center justify-between px-8 py-4">
+          <div className="flex items-center gap-4">
+            <img src="https://www.singaporecancersociety.org.sg/images/logo.png" alt="Singapore Cancer Society" className="h-12" />
+            <span className="font-bold text-2xl text-gray-700">SINGAPORE CANCER SOCIETY</span>
           </div>
+          <div className="flex items-center gap-6">
+            {/* Login buttons in header */}
+            <div className="flex gap-2">
+              <button className="bg-purple-700 text-white px-5 py-2 rounded font-bold shadow hover:bg-purple-800 transition text-base">Corporate Login</button>
+              <button
+                className="bg-white text-purple-700 border-2 border-purple-700 px-5 py-2 rounded font-bold shadow hover:bg-purple-50 transition text-base"
+                onClick={() => navigate('/personal-login')}
+              >
+                Personal Login
+              </button>
+            </div>
+            <a href="#" className="text-base text-purple-800 font-semibold">CONTACT US<br /><span className="text-sm font-normal">1800-727-3333</span></a>
+            <button className="bg-purple-700 text-white px-6 py-3 rounded-md font-bold shadow hover:bg-purple-800 transition text-lg">DONATE</button>
+          </div>
+        </div>
+        <nav className="flex items-center gap-8 px-8 py-3 bg-white border-t border-b border-gray-100 text-gray-700 text-lg font-semibold">
+          <a href="#" className="hover:text-purple-700">ABOUT US</a>
+          <a href="#" className="hover:text-purple-700">LEARN ABOUT CANCER</a>
+          <a href="#" className="hover:text-purple-700">GET SCREENED</a>
+          <a href="#" className="hover:text-purple-700">GET HELP</a>
+          <a href="#" className="hover:text-purple-700">STORIES</a>
+          <a href="#" className="hover:text-purple-700">BE INVOLVED</a>
+          <a href="#" className="hover:text-purple-700">EVENTS</a>
+          <div className="ml-auto flex items-center">
+            <input type="text" placeholder="SEARCH" className="px-4 py-2 rounded-l bg-gray-100 border border-gray-300 text-gray-700 text-base" />
+            <button className="px-5 py-2 rounded-r bg-gray-300 text-gray-700 font-bold text-lg">🔍</button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero Banner */}
+      <section className="w-full bg-gradient-to-r from-purple-200 via-purple-100 to-purple-200 py-16 mb-4">
+        <div className="container mx-auto px-8 flex flex-col items-center">
+          <h1 className="text-5xl font-extrabold text-white mb-8">Donate</h1>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-24 bg-gradient-to-b from-white via-blue-50 to-white relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/2 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
+      {/* Sidebar */}
+      <div className="fixed top-1/3 left-0 z-20 flex flex-col gap-2">
+        <button className="bg-purple-500 text-white p-3 rounded-r shadow hover:bg-purple-600"><Share2 /></button>
+        <button className="bg-purple-500 text-white p-3 rounded-r shadow hover:bg-purple-600"><Mail /></button>
+      </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="mx-auto max-w-2xl text-center mb-20">
-            <div className="inline-block mb-4">
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                <span className="flex h-2 w-2 mr-2">
-                  <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                </span>
-                Innovative Healthcare Solutions
-              </span>
+      {/* Donation Options Grid */}
+      <main className="container mx-auto px-8 flex-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 py-8">
+          {donationOptions.map((opt, i) => (
+            <div key={i} className="flex flex-col items-center text-center">
+              <div className={`mb-4 w-32 h-32 flex items-center justify-center rounded-full shadow-lg ${iconBgColors[i % iconBgColors.length]}`}>
+                <img src={iconImages[i]} alt={opt.label} className="w-20 h-20 object-contain" />
+              </div>
+              <div className="inline-block px-6 py-2 rounded-full bg-purple-700 text-white font-bold text-lg mb-3">{opt.label}</div>
+              <p className="text-gray-800 text-base max-w-xs mx-auto">{opt.desc}</p>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight text-blue-900 sm:text-4xl mb-4">
-              Our Comprehensive Solution
-            </h2>
-            <p className="text-lg text-blue-700">
-              A complete ecosystem for early cancer detection and prevention
-            </p>
+          ))}
+        </div>
+      </main>
+
+      {/* Info Section */}
+      <section className="container mx-auto px-8 pb-8">
+        <div className="bg-white rounded-xl shadow p-8 mb-8">
+          <p className="text-sm text-gray-700 mb-3">*All donations flow into SCS General Funds. Illustrated above are examples where we deploy the funds to cancer awareness and prevention, free cancer screening services, financial assistance, rehabilitation services, psychological services, cancer support services and home hospice care.</p>
+          <p className="text-sm text-gray-700 mb-3">All donations made to Singapore Cancer Society (SCS) are tax deductible. Once your NRIC / FIN / UEN No. details are sent to SCS, your donation details will be provided directly to Inland Revenue Authority of Singapore (IRAS) and the donation deductions will be included automatically in your individual tax assessment. There is no need to declare the donation amount in your income tax return. IRAS will no longer accept claims for tax deduction based on tax-deductible receipts.</p>
+          <p className="text-sm text-gray-700 mb-3">As part of SCS Go Green initiative, issuance of physical tax-deductible receipts has ceased and is replaced by e-receipts. Kindly provide us your email address to receive your e-receipts.</p>
+          <p className="font-bold text-base text-gray-800 mt-6">Giving is powerful, but we should also make sure that our donations are going to benefit the people or causes we want to support.<br />We encourage all donors and the public to practise the following steps of "Ask. Check. Give." <a href="#" className="text-purple-700 underline">Find out more about Online Safer Giving here.</a></p>
+        </div>
+        <div className="bg-purple-50 rounded-xl shadow p-8 mb-8">
+          <h3 className="font-bold text-purple-800 mb-3 text-lg">Learn how to safeguard yourself against scams (click to read more)</h3>
+          <ul className="list-disc pl-6 text-base text-gray-700 mb-3">
+            <li><b>Do not provide</b> sensitive personal information (like usernames and passwords) over email or SMS.</li>
+            <li><b>Watch</b> for email or SMS that originates from unknown/misleading sources, domains or senders. Be careful of malicious sites.</li>
+            <li><b>Inspect</b> URLs carefully. Ensure you are accessing our secure online donation portal via <span className="bg-gray-200 px-2 py-1 rounded">org.sg</span> website.</li>
+          </ul>
+          <div className="flex gap-2 mb-3">
+            <span className="bg-gray-200 px-2 py-1 rounded text-base">singaporecancersociety.org.sg</span>
+            <span className="bg-gray-200 px-2 py-1 rounded text-base">https://www.singaporecancersociety.org.sg</span>
           </div>
+          <p className="text-base text-gray-700 mb-3 italic">Do not click on links or attachments from senders that you do not recognise.</p>
+          <h4 className="font-bold text-base text-purple-800 mt-3 mb-2">2. Know Our Protocols:</h4>
+          <ul className="list-disc pl-6 text-base text-gray-700 mb-3">
+            <li>You may receive a <b>phone call</b> from our staff when your submitted donation form is incomplete. When a staff calls to verify the details of your donation, he/she will ask for your:<br />Full name<br />NRIC/FIN (the last 4 characters only)<br />Mobile number</li>
+            <li>When you call us to process your donation via credit/debit card; we will request for:<br />Cardholder's name as per the credit/debit card for which the donation is to be deducted from<br />Credit/debit card 16-digit numbers<br />Credit/debit card expiry date</li>
+            <li>We will <b>never</b> ask for the CVV number of your card or one-time password.</li>
+          </ul>
+          <p className="text-base text-gray-700">Whenever in doubt, please call SCS hotline: 1800-727-3333.</p>
+        </div>
+      </section>
 
-          <div className="space-y-24">
-            {[
-              {
-                icon: <Brain className="h-12 w-12 text-blue-600" />,
-                title: 'AI-Powered Health Companion',
-                description: 'Experience the future of healthcare with our intelligent system that combines personalized symptom checking, real-time risk tracking, and seamless Singpass integration for instant subsidized screening bookings.',
-                link: '/mobile',
-                image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-              },
-              {
-                icon: <Layers className="h-12 w-12 text-blue-600" />,
-                title: 'SenseSpot Screening Pods',
-                description: 'Discover our innovative self-contained screening pods in your neighborhood. Get instant AI-driven analysis of skin, oral, and throat scans, plus convenient self-testing kits with immediate results.',
-                link: '/sensespot',
-                image: 'https://images.pexels.com/photos/3845811/pexels-photo-3845811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-              },
-              {
-                icon: <Building2 className="h-12 w-12 text-blue-600" />,
-                title: 'Corporate Wellness Revolution',
-                description: 'Transform your workplace into a health-conscious environment with expert-led educational talks, on-site screening days, and exciting incentives including CDC Vouchers and FairPrice discounts.',
-                link: '/corporate',
-                image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-              },
-              {
-                icon: <Award className="h-12 w-12 text-blue-600" />,
-                title: 'OncoPoints Rewards',
-                description: 'Join our gamified wellness journey! Earn points for screenings, refer friends, and redeem rewards for wellness products, gym memberships, or contribute to community screening initiatives.',
-                link: '/rewards',
-                image: 'https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className={`relative flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+      {/* Tabbed Donation Methods */}
+      <section className="w-full bg-purple-100 py-10">
+        <div className="container mx-auto px-8">
+          <div className="flex flex-wrap gap-3 mb-8">
+            {tabOptions.map((tab, idx) => (
+              <button
+                key={tab}
+                className={`px-6 py-3 rounded-t font-semibold text-lg border-b-2 ${activeTab === idx ? 'bg-white text-purple-800 border-purple-700' : 'bg-purple-100 text-purple-700 border-transparent'}`}
+                onClick={() => setActiveTab(idx)}
               >
-                {/* Decorative elements */}
-                <div className={`absolute -top-6 ${index % 2 === 0 ? '-left-6' : '-right-6'} w-24 h-24 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full opacity-50 animate-pulse`}></div>
-                <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} w-32 h-32 bg-gradient-to-br from-blue-300 to-blue-400 rounded-full opacity-30 animate-pulse animation-delay-1000`}></div>
-
-                <div className="flex-1 relative z-10">
-                  <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="p-3 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 shadow-md border border-blue-100">
-                        {feature.icon}
-                      </div>
-                      <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">{feature.title}</h3>
-                    </div>
-                    <p className="text-blue-700 leading-relaxed mb-6">{feature.description}</p>
-                    <Link
-                      to={feature.link}
-                      className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium group bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-3 rounded-lg hover:from-blue-100 hover:to-blue-200 transition-all duration-300 shadow-sm hover:shadow-md"
-                    >
-                      Learn more 
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="flex-1 relative z-10">
-                  <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-                    <div className="relative overflow-hidden rounded-2xl">
-                      <img
-                        src={feature.image}
-                        alt={feature.title}
-                        className="w-full h-[400px] object-cover transform group-hover:scale-[1.02] transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-blue-900/10 to-transparent"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-blue-900/50 to-transparent">
-                        <div className="text-white font-medium">Discover More →</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                {tab}
+              </button>
             ))}
           </div>
+          <div className="bg-white rounded-b-xl shadow p-8">
+            {/* Only show PayNow instructions for demo */}
+            {activeTab === 0 && (
+              <ol className="list-decimal pl-6 text-base text-gray-700 space-y-2">
+                <li>Log in to your respective bank (online banking or mobile banking app) and click on the PayNow icon.</li>
+                <li>On Unique Entity Number (UEN), key in <b>S65SS0033F</b>. "Singapore Cancer Society" will automatically appear if UEN is keyed in correctly.</li>
+                <li>Enter your desired donation amount.</li>
+                <li>If you wish to receive <b>tax exemption</b>, kindly indicate your <b>Full Name & Full NRIC/FIN/UEN</b> in the reference number field. Please note that there will not be any tax exemption if you do not provide your NRIC/FIN/UEN at point of donation.</li>
+              </ol>
+            )}
+            {activeTab !== 0 && (
+              <div className="text-gray-700 text-base">Please follow the instructions for <b>{tabOptions[activeTab]}</b> donation on our official website.</div>
+            )}
+            <button className="mt-8 bg-purple-700 text-white px-8 py-3 rounded font-bold shadow hover:bg-purple-800 transition text-lg">CLICK TO DONATE</button>
+          </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="w-full bg-gray-900 text-gray-100 py-14 mt-10">
+        <div className="container mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div>
+            <h5 className="font-bold mb-3 text-purple-300 text-lg">About Cancer</h5>
+            <ul className="space-y-2 text-base">
+              <li>What Causes Cancer?</li>
+              <li>Common Types of Cancer in Singapore</li>
+              <li>Cancer Myths Debunked</li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="font-bold mb-3 text-purple-300 text-lg">Cancer Screening</h5>
+            <ul className="space-y-2 text-base">
+              <li>Why Screen for Cancer?</li>
+              <li>FIT Kit</li>
+              <li>Breast Self-Examination</li>
+              <li>Mammogram</li>
+              <li>Pap Test</li>
+              <li>Community Mammobus Programme</li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="font-bold mb-3 text-purple-300 text-lg">How Can We Help</h5>
+            <ul className="space-y-2 text-base">
+              <li>Assistance for Children & Youth</li>
+              <li>Apply for Financial Assistance</li>
+              <li>Join Cancer Rehab Programme</li>
+              <li>Home-Hospital Transportation</li>
+              <li>Apply to Hospice Care</li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="font-bold mb-3 text-purple-300 text-lg">Subscribe to Newsletter</h5>
+            <p className="text-base mb-3">Get updates on our Society and cancer-related news</p>
+            <input type="text" placeholder="Your Name" className="w-full mb-3 px-3 py-2 rounded bg-gray-800 border border-gray-700 text-gray-100 text-base" />
+            <input type="email" placeholder="Your Email Address" className="w-full mb-3 px-3 py-2 rounded bg-gray-800 border border-gray-700 text-gray-100 text-base" />
+            <button className="w-full bg-purple-700 text-white px-6 py-3 rounded font-bold shadow hover:bg-purple-800 transition text-lg">SUBSCRIBE</button>
+          </div>
+        </div>
+        <div className="text-center text-gray-500 text-base mt-10">&copy; {new Date().getFullYear()} Singapore Cancer Society. All rights reserved.</div>
+      </footer>
     </div>
   );
 };
